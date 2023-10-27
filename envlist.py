@@ -6,7 +6,7 @@ import sys
 
 # set constants
 file_path = "/data/picasso/envlist.hkl"
-lock_path = "/data/picasso/envlist.khl.lock"
+lock_path = "/data/picasso/envlist.hkl.lock"
 time_out_secs = 60
 
 # program modes
@@ -40,9 +40,10 @@ lock = FileLock(lock_path, timeout=time_out_secs)
 
 with lock:
     if pmode == RESET_MODE:
-        # create a list (named clist) of nevns environments with the 
+        # create a list (named clist) of nevns environments with the
         # prefix envprefix
         # add code here
+        clist = [f"{envprefix}{n}" for n in range(int(nenvs))]
     else:
         # load hickle file
         clist = hickle.load(file_path)
@@ -50,10 +51,13 @@ with lock:
         if pmode == WRITE_MODE:
             # append item to end of list
             # add code here
-        else:    
+            clist.append(env)
+
+        else:
             # get and remove env from clist
             # add code here
             # return env name
+            env = clist.pop(0)
             print(env)
 
     # save hickle file
