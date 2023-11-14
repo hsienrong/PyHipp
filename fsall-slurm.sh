@@ -19,4 +19,3 @@ python -u -c "import DataProcessingTools as DPT; \
 	hfall.save();"
 
 aws sns publish --topic-arn arn:aws:sns:ap-southeast-1:036139651340:awsnotify --message "FSJobDone"
-
